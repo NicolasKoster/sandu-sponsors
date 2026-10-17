@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sandú — Banderines azul rojo blanco</title>
+<style>
+:root{--white:#fff;--blue:#07358c;--red:#d6283b}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent;font-family:Verdana,Arial,sans-serif}
+.overlay{width:100%;height:100%;display:flex;justify-content:center;align-items:flex-start;background:transparent}
+.group{width:min(66vw,760px);height:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(6px,2vw,24px);padding-top:clamp(5px,1.4vh,12px)}
+.unit{position:relative;min-width:0;display:flex;align-items:center;flex-direction:column;transform-origin:top center}
+.star{z-index:3;color:#fff;font-size:clamp(18px,3.5vw,38px);line-height:1.1;filter:drop-shadow(0 2px 3px #0009);text-shadow:0 0 8px #ffffff44}
+.pennant{position:relative;margin-top:2px;width:clamp(35px,7.5vw,80px);height:clamp(65px,12vw,130px);transform-origin:50% 0;opacity:0;transform:translateY(-150%) rotate(-7deg) scaleY(.75);filter:drop-shadow(0 4px 3px #0007);will-change:transform,opacity}
+.fabric{position:absolute;inset:0;background:linear-gradient(100deg,#031d67 0%,#183b9c 32%,#0c2b83 65%,#04174e 100%);clip-path:polygon(0 0,100% 0,100% 86%,50% 100%,0 86%);border-top:5px solid #e32937}
+.fabric:after{content:"";position:absolute;inset:0;border-left:4px solid #e32937;border-right:4px solid #e32937;opacity:1}
+.year{position:absolute;top:35%;left:0;right:0;text-align:center;color:#fff;font-weight:900;font-size:clamp(13px,2.5vw,28px);letter-spacing:.02em;text-shadow:0 2px 2px #00143c}
+.thread{position:absolute;top:-5px;left:50%;height:8px;border-left:2px solid #ffffff;transform:translateX(-50%)}
+.unit.drop .pennant{animation:drop 1.25s cubic-bezier(.19,.7,.35,1.05) forwards,sway 2.5s ease-in-out 1.25s infinite alternate}
+.unit:nth-child(2).drop .pennant{animation-delay:.18s,1.43s}
+.unit:nth-child(3).drop .pennant{animation-delay:.34s,1.59s}
+.unit:nth-child(4).drop .pennant{animation-delay:.50s,1.75s}
+.unit.retract .pennant{animation:retract .7s ease-in forwards}
+@keyframes drop{0%{opacity:0;transform:translateY(-155%) rotate(-12deg) scaleY(.78)}10%{opacity:1}68%{transform:translateY(13%) rotate(9deg) scaleY(1.08)}84%{transform:translateY(-5%) rotate(-4deg) scaleY(.97)}100%{opacity:1;transform:translateY(0) rotate(0) scaleY(1)}}
+@keyframes sway{0%{transform:rotate(-2deg)}100%{transform:rotate(2deg)}}
+@keyframes retract{0%{opacity:1;transform:translateY(0) scaleY(1)}100%{opacity:0;transform:translateY(-155%) scaleY(.8)}}
+@media(max-width:500px){.group{width:88vw;column-gap:6px}.pennant{width:13vw;height:24vw}.star{font-size:6vw}.year{font-size:4.4vw}}
+</style></head><body>
+<div class="overlay"><div class="group" id="group">
+<div class="unit"><div class="star">★</div><div class="pennant"><div class="thread"></div><div class="fabric"></div><div class="year">71</div></div></div>
+<div class="unit"><div class="star">★</div><div class="pennant"><div class="thread"></div><div class="fabric"></div><div class="year">72</div></div></div>
+<div class="unit"><div class="star">★</div><div class="pennant"><div class="thread"></div><div class="fabric"></div><div class="year">95</div></div></div>
+<div class="unit"><div class="star">★</div><div class="pennant"><div class="thread"></div><div class="fabric"></div><div class="year">97</div></div></div>
+</div></div>
+<script>
+(()=>{const units=[...document.querySelectorAll('.unit')];let busy=false;
+function run(){if(busy)return;busy=true;units.forEach(u=>{u.classList.remove('drop','retract');void u.offsetWidth;u.classList.add('drop')});
+setTimeout(()=>units.forEach(u=>{u.classList.remove('drop');u.classList.add('retract')}),7600);
+setTimeout(()=>{units.forEach(u=>u.classList.remove('retract'));busy=false},8500)}
+setTimeout(run,1600);setInterval(run,20000);
+})();
+</script></body></html>
